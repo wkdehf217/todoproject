@@ -1,16 +1,14 @@
 package com.todoproject.todoproject.entity;
 
 
-import com.todoproject.todoproject.dto.TodoRequestDto;
-import com.todoproject.todoproject.dto.TodoTitleContentRequestDto;
+import com.todoproject.todoproject.dto.todo.TodoRequestDto;
+import com.todoproject.todoproject.dto.todo.TodoTitleContentRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity // JPA가 관리할 수 있는 Entity 클래스 지정
 @Getter

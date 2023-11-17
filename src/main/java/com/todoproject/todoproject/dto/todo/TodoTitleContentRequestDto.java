@@ -1,4 +1,4 @@
-package com.todoproject.todoproject.dto;
+package com.todoproject.todoproject.dto.todo;
 
 import lombok.Getter;
 import lombok.Setter;
