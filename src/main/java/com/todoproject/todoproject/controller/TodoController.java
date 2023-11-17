@@ -23,8 +23,6 @@ public class TodoController {
 
     @PostMapping("/todo")
     public TodoResponseDto createTodo(@RequestBody TodoRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        System.out.println("hu");
-        log.info("hu");
         return todoService.createTodo(requestDto, userDetails.getUser());    // ?
     }
 

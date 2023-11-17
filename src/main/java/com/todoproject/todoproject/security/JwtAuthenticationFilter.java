@@ -7,6 +7,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -44,11 +45,17 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
         String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
 
         String token = jwtUtil.createToken(username);
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
+
+        JSONObject resJson = new JSONObject();
+        resJson.put("code", 200);
+        resJson.put("message", "good");
+
+        response.getWriter().write(resJson.toString());
     }
 
     @Override

@@ -6,12 +6,15 @@ import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j(topic = "JwtUtil")
 @Component
@@ -39,13 +42,16 @@ public class JwtUtil {
     // 토큰 생성
     public String createToken(String username) {
         Date date = new Date();
-
+//        Map<String, Object> claims = new HashMap<>();
+//        claims.put("good","good!");
+        // 사용자 정보를 Payload에 담기 + 토큰 발급
         return BEARER_PREFIX +
                 Jwts.builder()
                         .setSubject(username) // 사용자 식별자값(ID)
                         .setExpiration(new Date(date.getTime() + TOKEN_TIME)) // 만료 시간
                         .setIssuedAt(date) // 발급일
                         .signWith(key, signatureAlgorithm) // 암호화 알고리즘
+//                        .setClaims(claims)
                         .compact();
     }
     // 원래 request에서 배열로 가져왔는데
