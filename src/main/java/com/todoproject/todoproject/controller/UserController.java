@@ -50,8 +50,8 @@ public class UserController {
         }
 
         userService.signup(requestDto);
-
-        return "redirect:/api/user/login-page";
+        return null;
+        //return "redirect:/api/user/login-page";
     }
 
     // 회원 관련 정보 받기
