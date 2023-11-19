@@ -1,10 +1,11 @@
 package com.todoproject.todoproject.service;
 
+import com.todoproject.todoproject.dto.SignupRequestDto;
+import com.todoproject.todoproject.dto.comment.CommentDeleteRequestDto;
+import com.todoproject.todoproject.dto.comment.CommentDeleteResponseDto;
 import com.todoproject.todoproject.dto.comment.CommentResponseDto;
 import com.todoproject.todoproject.dto.comment.CommentRequestDto;
 import com.todoproject.todoproject.dto.comment.CommentUpdateRequestDto;
-import com.todoproject.todoproject.dto.todo.TodoResponseDto;
-import com.todoproject.todoproject.dto.todo.TodoUpdateResponseDto;
 import com.todoproject.todoproject.entity.Comment;
 import com.todoproject.todoproject.entity.Todo;
 import com.todoproject.todoproject.entity.User;
@@ -14,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Slf4j(topic = "up")
 @Service
@@ -39,6 +42,12 @@ public class CommentService {
 
         comment.update(requestDto);
         return new CommentResponseDto(comment);
+    }
+    @Transactional
+    public void deleteComment(Long id) {
+        commentRepository.deleteByCommentid(id).orElseThrow(() ->
+                new NullPointerException("해당 댓글을 찾을 수 없습니다.")
+        );
     }
 }
 
