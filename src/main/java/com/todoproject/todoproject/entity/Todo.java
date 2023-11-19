@@ -2,7 +2,7 @@ package com.todoproject.todoproject.entity;
 
 
 import com.todoproject.todoproject.dto.todo.TodoRequestDto;
-import com.todoproject.todoproject.dto.todo.TodoTitleContentRequestDto;
+import com.todoproject.todoproject.dto.todo.TodoUpdateRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,7 +33,7 @@ public class Todo {
     private String date;
 
     @Column(nullable = false)
-    private boolean finish;
+    private Boolean finish;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -48,9 +48,13 @@ public class Todo {
         this.user = user;
     }
 
-    public void update(TodoTitleContentRequestDto requestDto) {
+    public void update(TodoUpdateRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
+    }
+
+    public void finish() {
+        this.finish = true;
     }
 
 //    @OneToMany(mappedBy = "product")

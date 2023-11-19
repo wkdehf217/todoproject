@@ -6,17 +6,17 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class TodosResponseDto {
+public class TodoUpdateResponseDto {
     private String title;
+    private String content;
     private String maker;
     private String date;
-    private Boolean finish;
 
 
-    public TodosResponseDto(Todo todo) {
+    public TodoUpdateResponseDto(Todo todo) {
         this.title = todo.getTitle();
+        this.content = todo.getContent();
         this.maker = todo.getMaker();
         this.date = todo.getDate();
-        this.finish = todo.getFinish();
     }
 }

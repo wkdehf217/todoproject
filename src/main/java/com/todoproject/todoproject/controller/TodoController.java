@@ -1,9 +1,7 @@
 package com.todoproject.todoproject.controller;
 
 
-import com.todoproject.todoproject.dto.todo.TodoRequestDto;
-import com.todoproject.todoproject.dto.todo.TodoResponseDto;
-import com.todoproject.todoproject.dto.todo.TodoTitleContentRequestDto;
+import com.todoproject.todoproject.dto.todo.*;
 import com.todoproject.todoproject.security.UserDetailsImpl;
 import com.todoproject.todoproject.service.TodoService;
 import lombok.RequiredArgsConstructor;
@@ -27,17 +25,22 @@ public class TodoController {
     }
 
     @PutMapping("/todo/{id}")
-    public TodoResponseDto updateTodo(@PathVariable Long id, @RequestBody TodoTitleContentRequestDto requestDto) {
+    public TodoUpdateResponseDto updateTodo(@PathVariable Long id, @RequestBody TodoUpdateRequestDto requestDto) {
         return todoService.updateTodo(id, requestDto);
     }
 
     @GetMapping("/todos")
-    public List<TodoResponseDto> getTodos(){
+    public List<TodosResponseDto> getTodos(){
         return todoService.getTodos();
     }
 
     @GetMapping("/todo/{id}")
     public TodoResponseDto getTodoById(@PathVariable Long id){
         return todoService.getTodo(id);
+    }
+
+    @PutMapping("/todo-finish/{id}")
+    public TodoFinishResponseDto finishTodo(@PathVariable Long id) {
+        return todoService.finishTodo(id);
     }
 }

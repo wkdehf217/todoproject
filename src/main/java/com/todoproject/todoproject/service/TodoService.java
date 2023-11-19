@@ -1,9 +1,7 @@
 package com.todoproject.todoproject.service;
 
 
-import com.todoproject.todoproject.dto.todo.TodoRequestDto;
-import com.todoproject.todoproject.dto.todo.TodoResponseDto;
-import com.todoproject.todoproject.dto.todo.TodoTitleContentRequestDto;
+import com.todoproject.todoproject.dto.todo.*;
 import com.todoproject.todoproject.entity.Todo;
 import com.todoproject.todoproject.entity.User;
 import com.todoproject.todoproject.repository.TodoRepository;
@@ -25,23 +23,34 @@ public class TodoService {
     }
 
     @Transactional
-    public TodoResponseDto updateTodo(Long id, TodoTitleContentRequestDto requestDto) {
+    public TodoUpdateResponseDto updateTodo(Long id, TodoUpdateRequestDto requestDto) {
         Todo todo = todoRepository.findBytodoid(id).orElseThrow(() ->
                 new NullPointerException("해당 게시글을 찾을 수 없습니다.")
         );
 
         todo.update(requestDto);
 
-        return new TodoResponseDto(todo);
+        return new TodoUpdateResponseDto(todo);
+    }
+
+    @Transactional
+    public TodoFinishResponseDto finishTodo(Long id) {
+        Todo todo = todoRepository.findBytodoid(id).orElseThrow(() ->
+                new NullPointerException("해당 게시글을 찾을 수 없습니다.")
+        );
+
+        todo.finish();
+
+        return new TodoFinishResponseDto(todo);
     }
 
     @Transactional(readOnly = true)
-    public List<TodoResponseDto> getTodos() {
+    public List<TodosResponseDto> getTodos() {
         List<Todo> todoList = todoRepository.findAllByOrderByDateDesc();
-        List<TodoResponseDto> responseDtoList = new ArrayList<>();
+        List<TodosResponseDto> responseDtoList = new ArrayList<>();
 
         for (Todo todo : todoList) {
-            responseDtoList.add(new TodoResponseDto(todo));
+            responseDtoList.add(new TodosResponseDto(todo));
         }
 
         return responseDtoList;
