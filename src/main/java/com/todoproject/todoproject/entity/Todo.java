@@ -56,23 +56,4 @@ public class Todo {
     public void finish() {
         this.finish = true;
     }
-
-//    @OneToMany(mappedBy = "product")
-//    private List<ProductFolder> productFolderList = new ArrayList<>();
-
-//    public Product(ProductRequestDto requestDto, User user) {
-//        this.title = requestDto.getTitle();
-//        this.image = requestDto.getImage();
-//        this.link = requestDto.getLink();
-//        this.lprice = requestDto.getLprice();
-//        this.user = user;
-//    }
-//
-//    public void update(ProductMypriceRequestDto requestDto) {
-//        this.myprice = requestDto.getMyprice();
-//    }
-
-//    public void updateByItemDto(ItemDto itemDto) {
-//        this.lprice = itemDto.getLprice();
-//    }
 }

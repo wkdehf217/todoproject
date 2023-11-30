@@ -1,22 +1,16 @@
 package com.todoproject.todoproject.service;
 
-import com.todoproject.todoproject.dto.SignupRequestDto;
-import com.todoproject.todoproject.dto.comment.CommentDeleteRequestDto;
-import com.todoproject.todoproject.dto.comment.CommentDeleteResponseDto;
 import com.todoproject.todoproject.dto.comment.CommentResponseDto;
 import com.todoproject.todoproject.dto.comment.CommentRequestDto;
 import com.todoproject.todoproject.dto.comment.CommentUpdateRequestDto;
 import com.todoproject.todoproject.entity.Comment;
 import com.todoproject.todoproject.entity.Todo;
-import com.todoproject.todoproject.entity.User;
 import com.todoproject.todoproject.repository.CommentRepository;
 import com.todoproject.todoproject.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Slf4j(topic = "up")
 @Service
