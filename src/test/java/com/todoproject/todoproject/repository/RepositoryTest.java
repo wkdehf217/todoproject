@@ -38,6 +38,7 @@ public class RepositoryTest {
 
     TodoResponseDto createdTodo = null;
 
+    // teat(api): 유저 생성 기능 실패 테스트 추가
     @Test
     void 유저생성테스트(){
         //given
