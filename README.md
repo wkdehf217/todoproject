@@ -1,5 +1,23 @@
 # todoproject
 
+# Spring 심화주차 개인과제 - Test 적용
+- commit message 다는것을 나중에 봐서 늦게 적용했습니다 ㅠㅠ
+- entity Package
+  - entity Test를 위해 만든 패키지 입니다
+  - Integration이 붙은 파일이 통합 테스트 입니다
+  - 만들고 나서 나중에 보니 Service와 Repository를 여기서 모두 테스트 해버렸다고 생각해서,
+    이후의 repository 와 service 패키지는 의미가 없다고 판단하였습니다.
+- mvc Package
+  - controller Test를 위해 만든 패키지 입니다
+  - TodoCommentMvcTest 에서 todo와 comment controller를 테스트 하였습니다
+- repository, service Package
+  - 설명 생략 
+
+
+
+
+
+
 ERD
 
 ![todo erd](https://github.com/wkdehf217/todoproject/assets/45251507/d89e8192-30f9-4a08-8e43-36cd5afd08a4)
