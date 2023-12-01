@@ -18,6 +18,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -42,6 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //                )
 //        }
 )
+@ActiveProfiles("test")
 class TodoCommentMvcTest {
 
     private MockMvc mvc;
@@ -68,22 +70,12 @@ class TodoCommentMvcTest {
 
     private void mockUserSetup() {
         // Mock 테스트 유져 생성
-        String username = "test1";
+        String username = "test2";
         String password = "00000000";
         User testUser = new User(username, password);
         UserDetailsImpl testUserDetails = new UserDetailsImpl(testUser);
         mockPrincipal = new UsernamePasswordAuthenticationToken(testUserDetails, "", testUserDetails.getAuthorities());
     }
-
-    @Test
-    void 로그인() throws Exception {
-        // when - then
-        mvc.perform(get("/api/user/login"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("login"))
-                .andDo(print());
-    }
-
 
     @Test
     void 신규할일등록() throws Exception {

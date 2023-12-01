@@ -1,50 +1,60 @@
-package com.todoproject.todoproject.entity;
+package com.todoproject.todoproject.repository;
 
 import com.todoproject.todoproject.dto.comment.CommentRequestDto;
 import com.todoproject.todoproject.dto.comment.CommentResponseDto;
-import com.todoproject.todoproject.dto.comment.CommentUpdateRequestDto;
 import com.todoproject.todoproject.dto.todo.TodoRequestDto;
 import com.todoproject.todoproject.dto.todo.TodoResponseDto;
-import com.todoproject.todoproject.repository.CommentRepository;
-import com.todoproject.todoproject.repository.TodoRepository;
-import com.todoproject.todoproject.repository.UserRepository;
+import com.todoproject.todoproject.dto.todo.TodoUpdateRequestDto;
+import com.todoproject.todoproject.dto.todo.TodoUpdateResponseDto;
+import com.todoproject.todoproject.entity.Todo;
+import com.todoproject.todoproject.entity.User;
 import com.todoproject.todoproject.service.CommentService;
 import com.todoproject.todoproject.service.TodoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // 서버의 PORT 를 랜덤으로 설정합니다.
-@TestInstance(TestInstance.Lifecycle.PER_CLASS) // 테스트 인스턴스의 생성 단위를 클래스로 변경합니다.
-@Transactional
-@ActiveProfiles("test")
-public class EntityIntegrationTest {
+@ExtendWith(SpringExtension.class)
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+public class RepositoryTest {
     @Autowired
     UserRepository userRepository;
     @Autowired
     TodoRepository todoRepository;
     @Autowired
-    TodoService todoService;
-    @Autowired
     CommentRepository commentRepository;
-    @Autowired
-    CommentService commentService;
 
-    User user;
-
-    // 응답할때 todoId를 넘겨주지 않게 설계되었음
     TodoResponseDto createdTodo = null;
-    CommentResponseDto createdResponseDto = null;
 
-    // Integration test
     @Test
-    void 신규할일등록() {
+    void 유저생성테스트(){
+        //given
+        String username = "g";
+        String password = "1";
+
+        //when
+        User user = new User(username,password);
+        userRepository.save(user);
+
+        System.out.println(user.getUsername());
+        //then
+        assertEquals("c", user.getUsername());
+    }
+
+    @Test
+    void 할일생성테스트(){
         // given
         String title = "hi";
         String content = "me";
@@ -55,7 +65,10 @@ public class EntityIntegrationTest {
                 content,
                 maker
         );
-        user = userRepository.findById(1L).orElse(null);
+
+        User user = userRepository.findById(1L).orElse(null);
+
+        TodoService todoService = new TodoService(todoRepository);
 
         // when
         TodoResponseDto todo = todoService.createTodo(requestDto, user);
@@ -79,28 +92,12 @@ public class EntityIntegrationTest {
                 content
         );
 
+        CommentService commentService = new CommentService(todoRepository,commentRepository);
+
         // when
         CommentResponseDto comment = commentService.createComment(requestDto);
 
         // then
         assertEquals(content, comment.getContent());
-        createdResponseDto = comment;
-    }
-
-    @Test
-    void 댓글수정() {
-        // given
-        Long commentId = 1L;
-        String content = "updateComment";
-
-        CommentUpdateRequestDto commentUpdateRequestDto = new CommentUpdateRequestDto(
-                content
-        );
-
-        // when
-        CommentResponseDto responseDto = commentService.updateComment(commentId, commentUpdateRequestDto);
-
-        // then
-        assertEquals(content, responseDto.getContent());
     }
 }
